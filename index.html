@@ -499,24 +499,17 @@ Loading updates...
 
         <div class="updates">
 
-            <div class="update-title">
-                KEY UPDATES
-            </div>
+    <div class="update-title">
+        KEY UPDATES
+    </div>
 
-            <div class="update-item">
-                <span class="time">11:43 AM</span><br>
-                DMK leads in 120+ constituencies
-            </div>
+    <div id="updatesContainer">
 
-            <div class="update-item">
-                <span class="time">11:40 AM</span><br>
-                BJP gains in urban seats
-            </div>
+        Loading updates...
 
-            <div class="update-item">
-                <span class="time">11:35 AM</span><br>
-                Counting progressing in all districts
-            </div>
+    </div>
+
+</div>
 
         </div>
 
@@ -583,7 +576,9 @@ const logos = {
     "TVK":
     "https://sabarisvlog-pixel.github.io/election-overlay/tvk.png"
 };
-
+const updatesAPI =
+"https://opensheet.elk.sh/13QqLZvgBpr6NY1RWcpnYXiKlOX6Yz-Ln2t-HjNoUE70/Updates";
+    
 let previousVotes = {};
 
 async function loadData(){
@@ -644,23 +639,36 @@ const newsAPI =
 "https://opensheet.elk.sh/13QqLZvgBpr6NY1RWcpnYXiKlOX6Yz-Ln2t-HjNoUE70/News";
 
 // LOAD NEWS
-async function loadNews(){
+async function loadUpdates(){
 
     try{
 
-        const response = await fetch(newsAPI);
+        const response = await fetch(updatesAPI);
 
         const data = await response.json();
 
-        let newsText = "";
+        let html = "";
 
         data.forEach(row => {
 
-            newsText += row.News + " | ";
+            html += `
 
+                <div class="update-item">
+
+                    <span class="time">
+                        ${row.Time}
+                    </span>
+
+                    <br>
+
+                    ${row.Update}
+
+                </div>
+
+            `;
         });
 
-        document.getElementById("liveNews").innerHTML = newsText;
+        document.getElementById("updatesContainer").innerHTML = html;
 
     }catch(error){
 
@@ -669,11 +677,13 @@ async function loadNews(){
 }
 loadData();
 loadNews();
+loadUpdates();
 
 setInterval(() => {
 
     loadData();
-    loadNews();
+loadNews();
+loadUpdates();
 
 }, 3000);
 
