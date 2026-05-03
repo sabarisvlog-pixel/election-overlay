@@ -1,92 +1,216 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Election Live Overlay</title>
 
-<!-- CENTER -->
-<div class="center">
+<style>
 
-<div class="map-title">
-TAMIL NADU LIVE MAP
-</div>
+html, body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:transparent;
+    font-family:Arial, sans-serif;
+}
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Tamil_Nadu_locator_map.svg">
+/* MAIN CONTAINER */
+.container{
 
-</div>
+    position:fixed;
+    bottom:0;
+    left:0;
 
-<!-- RIGHT -->
-<div class="right-panel">
+    width:100%;
+    height:120px;
 
-<div class="update-box">
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
 
-<div class="update-title">
-KEY UPDATES
-</div>
+    background:rgba(10,10,10,0.92);
 
-<div class="update-item">
-<span class="time">11:43 AM</span><br>
-DMK leads in 120+ constituencies
-</div>
+    overflow:hidden;
 
-<div class="update-item">
-<span class="time">11:40 AM</span><br>
-AIADMK makes comeback in western TN
-</div>
+    padding-bottom:10px;
 
-<div class="update-item">
-<span class="time">11:35 AM</span><br>
-BJP gains in urban seats
-</div>
+    box-sizing:border-box;
+}
 
-</div>
+/* EACH PARTY BOX */
+.box{
 
-</div>
+    flex:1;
 
-</div>
+    height:100%;
 
-<!-- BOTTOM TICKER -->
-<div class="ticker">
+    display:flex;
+    flex-direction:column;
 
-<div class="party-box">
-<img src="dmk.png">
-<div class="party-name">DMK</div>
-<div class="party-votes">10</div>
-<div class="party-leads">Leads: 5</div>
-</div>
+    align-items:center;
+    justify-content:center;
 
-<div class="party-box">
-<img src="aiadmk.png">
-<div class="party-name">AIADMK</div>
-<div class="party-votes">12</div>
-<div class="party-leads">Leads: 5</div>
-</div>
+    border-right:1px solid rgba(255,255,255,0.15);
+}
 
-<div class="party-box">
-<img src="bjp.png">
-<div class="party-name">BJP</div>
-<div class="party-votes">51</div>
-<div class="party-leads">Leads: 5</div>
-</div>
+.box:last-child{
+    border-right:none;
+}
 
-<div class="party-box">
-<img src="inc.png">
-<div class="party-name">INC</div>
-<div class="party-votes">54</div>
-<div class="party-leads">Leads: 5</div>
-</div>
+/* PARTY LOGO */
+.logo{
+    width:26px;
+    height:26px;
+    object-fit:contain;
+    margin-bottom:2px;
+}
 
-<div class="party-box">
-<img src="ntk.png">
-<div class="party-name">NTK</div>
-<div class="party-votes">854</div>
-<div class="party-leads">Leads: 5</div>
-</div>
+/* PARTY NAME */
+.party{
+    color:white;
+    font-size:12px;
+    font-weight:bold;
+}
 
-<div class="party-box">
-<img src="tvk.png">
-<div class="party-name">TVK</div>
-<div class="party-votes">8541</div>
-<div class="party-leads">Leads: 5</div>
-</div>
+/* VOTES */
+.votes{
+    color:yellow;
+    font-size:22px;
+    font-weight:bold;
+    margin-top:2px;
+}
 
-</div>
+/* LEADS */
+.leads{
+    color:#00ff99;
+    font-size:9px;
+    margin-top:1px;
+}
+
+/* ANIMATION */
+.animate{
+    animation:pulse 0.6s ease;
+}
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.2);
+        color:#00ff99;
+        text-shadow:0 0 12px #00ff99;
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="results"></div>
+
+<script>
+
+// GOOGLE SHEET API
+const apiURL =
+"https://opensheet.elk.sh/13QqLZvgBpr6NY1RWcpnYXiKlOX6Yz-Ln2t-HjNoUE70/Sheet1";
+
+// PARTY LOGOS
+const logos = {
+
+    "DMK":
+    "https://sabarisvlog-pixel.github.io/election-overlay/dmk.png",
+
+    "AIADMK":
+    "https://sabarisvlog-pixel.github.io/election-overlay/aiadmk.png",
+
+    "BJP":
+    "https://sabarisvlog-pixel.github.io/election-overlay/bjp.png",
+
+    "INC":
+    "https://sabarisvlog-pixel.github.io/election-overlay/inc.png",
+
+    "NTK":
+    "https://sabarisvlog-pixel.github.io/election-overlay/ntk.png",
+
+    "TVK":
+    "https://sabarisvlog-pixel.github.io/election-overlay/tvk.png"
+};
+
+// STORE OLD VALUES
+let previousVotes = {};
+
+async function loadData(){
+
+    try{
+
+        const response = await fetch(apiURL);
+
+        const data = await response.json();
+
+        let html = "";
+
+        data.forEach(row => {
+
+            const party = (row.Party || "").trim();
+
+            const votes = (row.Votes || "0").trim();
+
+            const leads = (row.Leads || "0").trim();
+
+            const changed = previousVotes[party] !== votes;
+
+            previousVotes[party] = votes;
+
+            html += `
+
+                <div class="box">
+
+                    <img class="logo"
+                    src="${logos[party]}"
+                    alt="${party}">
+
+                    <div class="party">
+                        ${party}
+                    </div>
+
+                    <div class="votes ${changed ? 'animate' : ''}">
+                        ${votes}
+                    </div>
+
+                    <div class="leads">
+                        Leads: ${leads}
+                    </div>
+
+                </div>
+            `;
+        });
+
+        document.getElementById("results").innerHTML = html;
+
+    }catch(error){
+
+        console.log(error);
+    }
+}
+
+// FIRST LOAD
+loadData();
+
+// AUTO REFRESH
+setInterval(loadData, 3000);
+
+</script>
 
 </body>
 </html>
