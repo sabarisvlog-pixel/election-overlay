@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Election Live Results</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Election Live Overlay</title>
 
 <style>
 
@@ -16,9 +17,10 @@ html, body{
     font-family:Arial, sans-serif;
 }
 
+/* MAIN CONTAINER */
 .container{
     width:100%;
-    height:100px;
+    height:110px;
     display:flex;
     justify-content:space-around;
     align-items:center;
@@ -26,10 +28,11 @@ html, body{
     background:transparent;
 }
 
+/* EACH PARTY BOX */
 .box{
     flex:1;
     text-align:center;
-    padding:8px;
+    padding:10px;
     border-right:1px solid rgba(255,255,255,0.2);
     background:rgba(0,0,0,0.5);
 }
@@ -38,30 +41,45 @@ html, body{
     border-right:none;
 }
 
+/* PARTY LOGO */
+.logo{
+    width:38px;
+    height:38px;
+    object-fit:contain;
+    margin-bottom:4px;
+}
+
+/* PARTY NAME */
 .party{
     color:white;
-    font-size:20px;
+    font-size:18px;
     font-weight:bold;
-    margin-bottom:6px;
 }
 
+/* VOTE COUNT */
 .votes{
     color:yellow;
-    font-size:32px;
+    font-size:30px;
     font-weight:bold;
-    transition: all 0.4s ease;
+    margin-top:4px;
 }
 
-/* Animation effect */
+/* LEADS */
+.leads{
+    color:#00ff99;
+    font-size:13px;
+    margin-top:3px;
+}
+
+/* ANIMATION */
 .animate{
-    animation: pulse 0.6s ease;
+    animation:pulse 0.6s ease;
 }
 
 @keyframes pulse{
 
     0%{
         transform:scale(1);
-        color:yellow;
     }
 
     50%{
@@ -72,13 +90,7 @@ html, body{
 
     100%{
         transform:scale(1);
-        color:yellow;
     }
-}
-.leads{
-    color:#00ff99;
-    font-size:14px;
-    margin-top:4px;
 }
 
 </style>
@@ -90,10 +102,33 @@ html, body{
 
 <script>
 
+// GOOGLE SHEET API
 const apiURL =
 "https://opensheet.elk.sh/13QqLZvgBpr6NY1RWcpnYXiKlOX6Yz-Ln2t-HjNoUE70/Sheet1";
 
-// Store previous values
+// PARTY LOGOS
+const logos = {
+
+    "DMK":
+    "https://upload.wikimedia.org/wikipedia/en/5/55/Dravida_Munnetra_Kazhagam_logo.svg",
+
+    "AIADMK":
+    "https://upload.wikimedia.org/wikipedia/en/7/77/AIADMK_Logo.svg",
+
+    "BJP":
+    "https://upload.wikimedia.org/wikipedia/en/5/55/Bharatiya_Janata_Party_logo.svg",
+
+    "INC":
+    "https://upload.wikimedia.org/wikipedia/commons/4/45/Indian_National_Congress_hand_logo.svg",
+
+    "NTK":
+    "https://upload.wikimedia.org/wikipedia/en/6/67/Naam_Tamizhar_Katchi_logo.png",
+
+    "TVK":
+    "https://upload.wikimedia.org/wikipedia/en/8/8d/Tamilaga_Vetri_Kazhagam_logo.png"
+};
+
+// STORE OLD VALUES
 let previousVotes = {};
 
 async function loadData(){
@@ -109,16 +144,22 @@ async function loadData(){
         data.forEach(row => {
 
             const party = (row.Party || "").trim();
+
             const votes = (row.Votes || "0").trim();
+
             const leads = (row.Leads || "0").trim();
 
-            // Detect change
             const changed = previousVotes[party] !== votes;
 
             previousVotes[party] = votes;
 
             html += `
+
                 <div class="box">
+
+                    <img class="logo"
+                    src="${logos[party]}"
+                    alt="${party}">
 
                     <div class="party">
                         ${party}
@@ -141,12 +182,13 @@ async function loadData(){
     }catch(error){
 
         console.log(error);
-
     }
 }
 
+// FIRST LOAD
 loadData();
 
+// AUTO REFRESH
 setInterval(loadData, 3000);
 
 </script>
