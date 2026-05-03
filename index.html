@@ -49,8 +49,32 @@ html, body{
     color:yellow;
     font-size:32px;
     font-weight:bold;
+    transition: all 0.4s ease;
 }
 
+/* Animation effect */
+.animate{
+    animation: pulse 0.6s ease;
+}
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+        color:yellow;
+    }
+
+    50%{
+        transform:scale(1.25);
+        color:#00ff99;
+        text-shadow:0 0 20px #00ff99;
+    }
+
+    100%{
+        transform:scale(1);
+        color:yellow;
+    }
+}
 .leads{
     color:#00ff99;
     font-size:14px;
@@ -66,12 +90,11 @@ html, body{
 
 <script>
 
-const SHEET_ID = "13QqLZvgBpr6NY1RWcpnYXiKlOX6Yz-Ln2t-HjNoUE70";
-const API_KEY = "AIzaSyXXXXXXXXXXXXXXXX"; // TEMP placeholder
-
-// PUBLIC JSON FEED
 const apiURL =
-`https://opensheet.elk.sh/${SHEET_ID}/Sheet1`;
+"https://opensheet.elk.sh/13QqLZvgBpr6NY1RWcpnYXiKlOX6Yz-Ln2t-HjNoUE70/Sheet1";
+
+// Store previous values
+let previousVotes = {};
 
 async function loadData(){
 
@@ -89,12 +112,21 @@ async function loadData(){
             const votes = (row.Votes || "0").trim();
             const leads = (row.Leads || "0").trim();
 
+            // Detect change
+            const changed = previousVotes[party] !== votes;
+
+            previousVotes[party] = votes;
+
             html += `
                 <div class="box">
 
-                    <div class="party">${party}</div>
+                    <div class="party">
+                        ${party}
+                    </div>
 
-                    <div class="votes">${votes}</div>
+                    <div class="votes ${changed ? 'animate' : ''}">
+                        ${votes}
+                    </div>
 
                     <div class="leads">
                         Leads: ${leads}
@@ -108,13 +140,8 @@ async function loadData(){
 
     }catch(error){
 
-        document.getElementById("results").innerHTML = `
-            <div style="color:red;padding:20px;">
-                DATA LOAD ERROR
-            </div>
-        `;
-
         console.log(error);
+
     }
 }
 
