@@ -28,7 +28,7 @@ html,body{
 }
 
 /* =========================
-TOP HEADER
+HEADER
 ========================= */
 
 .header{
@@ -88,6 +88,7 @@ BREAKING NEWS
 .breaking{
 
     width:100%;
+
     height:45px;
 
     background:white;
@@ -151,7 +152,7 @@ BREAKING NEWS
 }
 
 /* =========================
-MAIN CONTENT
+MAIN AREA
 ========================= */
 
 .main{
@@ -169,9 +170,9 @@ LEFT PANEL
 
 .left-panel{
 
-    width:230px;
+    width:220px;
 
-    padding:12px;
+    padding:10px;
 }
 
 .card{
@@ -198,7 +199,7 @@ LEFT PANEL
 
 .card-value{
 
-    font-size:38px;
+    font-size:40px;
 
     color:#ffe600;
 
@@ -206,7 +207,7 @@ LEFT PANEL
 }
 
 /* =========================
-CENTER SECTION
+CENTER
 ========================= */
 
 .center{
@@ -214,8 +215,6 @@ CENTER SECTION
     flex:1;
 
     display:flex;
-
-    flex-direction:column;
 
     align-items:center;
 
@@ -248,7 +247,7 @@ CENTER SECTION
 
     height:auto;
 
-    opacity:0.95;
+    object-fit:contain;
 }
 
 /* =========================
@@ -259,7 +258,7 @@ RIGHT PANEL
 
     width:300px;
 
-    padding:12px;
+    padding:10px;
 }
 
 .updates{
@@ -300,7 +299,7 @@ RIGHT PANEL
 
     overflow-y:auto;
 
-    height:calc(100% - 70px);
+    height:calc(100% - 80px);
 }
 
 .update-item{
@@ -320,7 +319,7 @@ RIGHT PANEL
 }
 
 /* =========================
-BOTTOM TICKER
+BOTTOM PARTY BAR
 ========================= */
 
 .container{
@@ -335,7 +334,7 @@ BOTTOM TICKER
 
     height:120px;
 
-    background:rgba(0,0,0,0.96);
+    background:rgba(0,0,0,0.95);
 
     display:flex;
 
@@ -382,8 +381,6 @@ BOTTOM TICKER
     font-size:12px;
 
     font-weight:bold;
-
-    color:white;
 }
 
 .votes{
@@ -447,7 +444,7 @@ BOTTOM TICKER
 
 </div>
 
-<!-- BREAKING -->
+<!-- BREAKING NEWS -->
 
 <div class="breaking">
 
@@ -461,27 +458,48 @@ BOTTOM TICKER
 
 </div>
 
-<!-- MAIN -->
+<!-- MAIN CONTENT -->
 
 <div class="main">
 
-    <!-- LEFT -->
+    <!-- LEFT PANEL -->
 
     <div class="left-panel">
 
         <div class="card">
-            <div class="card-title">TOTAL SEATS</div>
-            <div class="card-value">234</div>
+
+            <div class="card-title">
+                TOTAL SEATS
+            </div>
+
+            <div class="card-value" id="totalSeats">
+                234
+            </div>
+
         </div>
 
         <div class="card">
-            <div class="card-title">LEADING</div>
-            <div class="card-value">146</div>
+
+            <div class="card-title">
+                LEADING
+            </div>
+
+            <div class="card-value" id="leadingSeats">
+                146
+            </div>
+
         </div>
 
         <div class="card">
-            <div class="card-title">COUNTED</div>
-            <div class="card-value">234</div>
+
+            <div class="card-title">
+                COUNTED
+            </div>
+
+            <div class="card-value" id="countedSeats">
+                234
+            </div>
+
         </div>
 
     </div>
@@ -495,11 +513,11 @@ BOTTOM TICKER
         </div>
 
         <img class="tn-map"
-        src="https://upload.wikimedia.org/wikipedia/commons/5/55/Tamil_Nadu_locator_map.svg">
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tamil_Nadu_districts_map.svg/800px-Tamil_Nadu_districts_map.svg.png">
 
     </div>
 
-    <!-- RIGHT -->
+    <!-- RIGHT PANEL -->
 
     <div class="right-panel">
 
@@ -510,9 +528,7 @@ BOTTOM TICKER
             </div>
 
             <div id="updatesContainer">
-
                 Loading updates...
-
             </div>
 
         </div>
@@ -521,7 +537,7 @@ BOTTOM TICKER
 
 </div>
 
-<!-- TICKER -->
+<!-- BOTTOM PARTY BAR -->
 
 <div class="container" id="results"></div>
 
@@ -553,7 +569,7 @@ setInterval(updateClock,1000);
 
 updateClock();
 
-/* APIs */
+/* GOOGLE SHEET APIs */
 
 const apiURL =
 "https://opensheet.elk.sh/13QqLZvgBpr6NY1RWcpnYXiKlOX6Yz-Ln2t-HjNoUE70/Sheet1";
@@ -564,7 +580,10 @@ const newsAPI =
 const updatesAPI =
 "https://opensheet.elk.sh/13QqLZvgBpr6NY1RWcpnYXiKlOX6Yz-Ln2t-HjNoUE70/Updates";
 
-/* LOGOS */
+const statsAPI =
+"https://opensheet.elk.sh/13QqLZvgBpr6NY1RWcpnYXiKlOX6Yz-Ln2t-HjNoUE70/Stats";
+
+/* PARTY LOGOS */
 
 const logos = {
 
@@ -589,7 +608,7 @@ const logos = {
 
 let previousVotes = {};
 
-/* LOAD TICKER */
+/* PARTY DATA */
 
 async function loadData(){
 
@@ -644,7 +663,7 @@ async function loadData(){
     }
 }
 
-/* LOAD NEWS */
+/* BREAKING NEWS */
 
 async function loadNews(){
 
@@ -672,7 +691,7 @@ async function loadNews(){
     }
 }
 
-/* LOAD UPDATES */
+/* KEY UPDATES */
 
 async function loadUpdates(){
 
@@ -710,11 +729,37 @@ async function loadUpdates(){
     }
 }
 
+/* STATS */
+
+async function loadStats(){
+
+    try{
+
+        const response = await fetch(statsAPI);
+
+        const data = await response.json();
+
+        document.getElementById("totalSeats").innerHTML =
+        data[0].Total;
+
+        document.getElementById("leadingSeats").innerHTML =
+        data[0].Leading;
+
+        document.getElementById("countedSeats").innerHTML =
+        data[0].Counted;
+
+    }catch(error){
+
+        console.log(error);
+    }
+}
+
 /* INITIAL LOAD */
 
 loadData();
 loadNews();
 loadUpdates();
+loadStats();
 
 /* AUTO REFRESH */
 
@@ -723,6 +768,7 @@ setInterval(()=>{
     loadData();
     loadNews();
     loadUpdates();
+    loadStats();
 
 },3000);
 
