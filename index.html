@@ -14,129 +14,80 @@
 }
 
 html,body{
-
     width:100%;
     height:100%;
-
     overflow:hidden;
-
     background:#04142b;
-
     font-family:Arial,sans-serif;
-
     color:white;
 }
 
-/* =========================
-HEADER
-========================= */
+/* HEADER */
 
 .header{
-
     width:100%;
     height:70px;
-
     background:#07101d;
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     padding:0 20px;
-
     border-bottom:2px solid #0f2f57;
 }
 
 .live{
-
     background:red;
-
     padding:10px 18px;
-
     border-radius:6px;
-
     font-size:20px;
-
     font-weight:bold;
 }
 
 .title{
-
     font-size:36px;
-
     font-weight:bold;
 }
 
 .yellow{
-
     color:#ffd400;
 }
 
 .clock{
-
     font-size:24px;
-
     font-weight:bold;
 }
 
-/* =========================
-BREAKING NEWS
-========================= */
+/* BREAKING NEWS */
 
 .breaking{
-
     width:100%;
-
-    height:45px;
-
+    height:42px;
     background:white;
-
     display:flex;
-
     align-items:center;
-
     overflow:hidden;
-
     position:relative;
 }
 
 .breaking-left{
-
-    width:180px;
-
+    width:170px;
     height:100%;
-
     background:red;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
-    font-size:16px;
-
+    font-size:18px;
     font-weight:bold;
-
     z-index:5;
 }
 
 .marquee{
-
     position:absolute;
-
-    left:200px;
-
+    left:190px;
     white-space:nowrap;
-
     color:black;
-
     font-size:18px;
-
     font-weight:bold;
-
     animation:scroll 20s linear infinite;
 }
 
@@ -151,258 +102,166 @@ BREAKING NEWS
     }
 }
 
-/* =========================
-MAIN AREA
-========================= */
+/* MAIN */
 
 .main{
-
     width:100%;
-
-    height:calc(100% - 235px);
-
+    height:calc(100% - 232px);
     display:flex;
 }
 
-/* =========================
-LEFT PANEL
-========================= */
+/* LEFT PANEL */
 
 .left-panel{
-
     width:220px;
-
     padding:10px;
 }
 
 .card{
-
     background:#082041;
-
     border:2px solid #113b68;
-
     border-radius:10px;
-
     margin-bottom:14px;
-
     padding:18px;
-
     text-align:center;
 }
 
 .card-title{
-
     font-size:18px;
-
     margin-bottom:10px;
 }
 
 .card-value{
-
-    font-size:40px;
-
+    font-size:42px;
     color:#ffe600;
-
     font-weight:bold;
 }
 
-/* =========================
-CENTER
-========================= */
+/* CENTER */
 
 .center{
-
     flex:1;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
     position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .map-title{
-
     position:absolute;
-
-    top:20px;
-
+    top:15px;
     left:20px;
-
     font-size:34px;
-
     font-weight:bold;
 }
 
 .map-title span{
-
     color:#ffd400;
 }
 
 .tn-map{
-
-    width:500px;
-
-    height:auto;
-
+    width:550px;
+    max-width:90%;
     object-fit:contain;
 }
 
-/* =========================
-RIGHT PANEL
-========================= */
+/* RIGHT PANEL */
 
 .right-panel{
-
     width:300px;
-
     padding:10px;
 }
 
 .updates{
-
     width:100%;
-
     height:100%;
-
     background:#082041;
-
     border:2px solid #113b68;
-
     border-radius:10px;
-
     padding:15px;
-
     overflow:hidden;
 }
 
 .update-title{
-
     background:red;
-
     padding:12px;
-
     border-radius:6px;
-
     text-align:center;
-
     font-size:18px;
-
     font-weight:bold;
-
     margin-bottom:20px;
 }
 
 #updatesContainer{
-
     overflow-y:auto;
-
     height:calc(100% - 80px);
 }
 
 .update-item{
-
     margin-bottom:20px;
-
     line-height:1.5;
-
     font-size:18px;
 }
 
 .time{
-
     color:#ffd400;
-
     font-weight:bold;
 }
 
-/* =========================
-BOTTOM PARTY BAR
-========================= */
+/* BOTTOM BAR */
 
 .container{
-
     position:fixed;
-
     bottom:0;
-
     left:0;
-
     width:100%;
-
     height:120px;
-
     background:rgba(0,0,0,0.95);
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-around;
 }
 
 .box{
-
     flex:1;
-
     height:100%;
-
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
-
     align-items:center;
-
     border-right:1px solid rgba(255,255,255,0.15);
 }
 
 .box:last-child{
-
     border-right:none;
 }
 
 .logo{
-
-    width:28px;
-
-    height:28px;
-
+    width:30px;
+    height:30px;
     object-fit:contain;
-
     margin-bottom:4px;
 }
 
 .party{
-
-    font-size:12px;
-
+    font-size:13px;
     font-weight:bold;
 }
 
 .votes{
-
-    font-size:24px;
-
+    font-size:28px;
     font-weight:bold;
-
     color:yellow;
 }
 
 .leads{
-
-    font-size:10px;
-
+    font-size:11px;
     color:#00ff99;
 }
 
 /* ANIMATION */
 
 .animate{
-
     animation:pulse 0.6s ease;
 }
 
@@ -428,12 +287,8 @@ BOTTOM PARTY BAR
 
 <!-- AUDIO -->
 
-<audio id="bgMusic" autoplay loop>
-
-<source
-src="https://sabarisvlog-pixel.github.io/election-overlay/news.mp3"
-type="audio/mpeg">
-
+<audio id="bgMusic" loop>
+    <source src="news.mp3" type="audio/mpeg">
 </audio>
 
 <!-- HEADER -->
@@ -468,16 +323,15 @@ type="audio/mpeg">
 
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 
 <div class="main">
 
-    <!-- LEFT PANEL -->
+    <!-- LEFT -->
 
     <div class="left-panel">
 
         <div class="card">
-
             <div class="card-title">
                 TOTAL SEATS
             </div>
@@ -485,31 +339,26 @@ type="audio/mpeg">
             <div class="card-value" id="totalSeats">
                 234
             </div>
-
         </div>
 
         <div class="card">
-
             <div class="card-title">
                 LEADING
             </div>
 
             <div class="card-value" id="leadingSeats">
-                146
+                0
             </div>
-
         </div>
 
         <div class="card">
-
             <div class="card-title">
                 COUNTED
             </div>
 
             <div class="card-value" id="countedSeats">
-                234
+                0
             </div>
-
         </div>
 
     </div>
@@ -523,11 +372,11 @@ type="audio/mpeg">
         </div>
 
         <img class="tn-map"
-        src="https://raw.githubusercontent.com/sabarisvlog-pixel/election-overlay/main/tnmap.png">
+        src="tnmap.png">
 
     </div>
 
-    <!-- RIGHT PANEL -->
+    <!-- RIGHT -->
 
     <div class="right-panel">
 
@@ -553,16 +402,20 @@ type="audio/mpeg">
 
 <script>
 
-/* ENABLE MUSIC */
+/* MUSIC */
 
-const music =
-document.getElementById("bgMusic");
+const music = document.getElementById("bgMusic");
 
-document.body.addEventListener("click", () => {
+music.volume = 0.5;
+
+function startMusic(){
 
     music.play();
 
-});
+    document.removeEventListener("click", startMusic);
+}
+
+document.addEventListener("click", startMusic);
 
 /* CLOCK */
 
@@ -590,7 +443,7 @@ setInterval(updateClock,1000);
 
 updateClock();
 
-/* GOOGLE SHEET APIs */
+/* GOOGLE SHEETS */
 
 const apiURL =
 "https://opensheet.elk.sh/13QqLZvgBpr6NY1RWcpnYXiKlOX6Yz-Ln2t-HjNoUE70/Sheet1";
@@ -604,27 +457,21 @@ const updatesAPI =
 const statsAPI =
 "https://opensheet.elk.sh/13QqLZvgBpr6NY1RWcpnYXiKlOX6Yz-Ln2t-HjNoUE70/Stats";
 
-/* PARTY LOGOS */
+/* LOGOS */
 
 const logos = {
 
-"DMK":
-"https://sabarisvlog-pixel.github.io/election-overlay/dmk.png",
+"DMK":"dmk.png",
 
-"AIADMK":
-"https://sabarisvlog-pixel.github.io/election-overlay/aiadmk.png",
+"AIADMK":"aiadmk.png",
 
-"BJP":
-"https://sabarisvlog-pixel.github.io/election-overlay/bjp.png",
+"BJP":"bjp.png",
 
-"INC":
-"https://sabarisvlog-pixel.github.io/election-overlay/inc.png",
+"INC":"inc.png",
 
-"NTK":
-"https://sabarisvlog-pixel.github.io/election-overlay/ntk.png",
+"NTK":"ntk.png",
 
-"TVK":
-"https://sabarisvlog-pixel.github.io/election-overlay/tvk.png"
+"TVK":"tvk.png"
 };
 
 let previousVotes = {};
@@ -633,149 +480,118 @@ let previousVotes = {};
 
 async function loadData(){
 
-    try{
+    const response = await fetch(apiURL);
 
-        const response = await fetch(apiURL);
+    const data = await response.json();
 
-        const data = await response.json();
+    let html = "";
 
-        let html = "";
+    data.forEach(row => {
 
-        data.forEach(row => {
+        const party = row.Party || "";
 
-            const party = row.Party || "";
+        const votes = row.Votes || "0";
 
-            const votes = row.Votes || "0";
+        const leads = row.Leads || "0";
 
-            const leads = row.Leads || "0";
+        const changed = previousVotes[party] !== votes;
 
-            const changed = previousVotes[party] !== votes;
+        previousVotes[party] = votes;
 
-            previousVotes[party] = votes;
+        html += `
 
-            html += `
+        <div class="box">
 
-            <div class="box">
+            <img class="logo"
+            src="${logos[party]}">
 
-                <img class="logo"
-                src="${logos[party]}">
-
-                <div class="party">
-                    ${party}
-                </div>
-
-                <div class="votes ${changed ? 'animate' : ''}">
-                    ${votes}
-                </div>
-
-                <div class="leads">
-                    Leads: ${leads}
-                </div>
-
+            <div class="party">
+                ${party}
             </div>
-            `;
-        });
 
-        document.getElementById("results").innerHTML = html;
+            <div class="votes ${changed ? 'animate' : ''}">
+                ${votes}
+            </div>
 
-    }catch(error){
+            <div class="leads">
+                Leads: ${leads}
+            </div>
 
-        console.log(error);
-    }
+        </div>
+        `;
+    });
+
+    document.getElementById("results").innerHTML = html;
 }
 
 /* BREAKING NEWS */
 
 async function loadNews(){
 
-    try{
+    const response = await fetch(newsAPI);
 
-        const response = await fetch(newsAPI);
+    const data = await response.json();
 
-        const data = await response.json();
+    let text = "";
 
-        let newsText = "";
+    data.forEach(row => {
 
-        data.forEach(row => {
+        text += row.News + " | ";
+    });
 
-            if(row.News){
-
-                newsText += row.News + " | ";
-            }
-        });
-
-        document.getElementById("liveNews").innerHTML = newsText;
-
-    }catch(error){
-
-        console.log(error);
-    }
+    document.getElementById("liveNews").innerHTML = text;
 }
 
 /* KEY UPDATES */
 
 async function loadUpdates(){
 
-    try{
+    const response = await fetch(updatesAPI);
 
-        const response = await fetch(updatesAPI);
+    const data = await response.json();
 
-        const data = await response.json();
+    let html = "";
 
-        let html = "";
+    data.forEach(row => {
 
-        data.forEach(row => {
+        html += `
 
-            html += `
+        <div class="update-item">
 
-            <div class="update-item">
+            <span class="time">
+                ${row.Time}
+            </span>
 
-                <span class="time">
-                    ${row.Time}
-                </span>
+            <br>
 
-                <br>
+            ${row.Update}
 
-                ${row.Update}
+        </div>
+        `;
+    });
 
-            </div>
-            `;
-        });
-
-        document.getElementById("updatesContainer").innerHTML = html;
-
-    }catch(error){
-
-        console.log(error);
-    }
+    document.getElementById("updatesContainer").innerHTML = html;
 }
 
 /* STATS */
 
 async function loadStats(){
 
-    try{
+    const response = await fetch(statsAPI);
 
-        const response = await fetch(statsAPI);
+    const data = await response.json();
 
-        const data = await response.json();
+    document.getElementById("totalSeats").innerHTML =
+    data[0].Total;
 
-        document.getElementById("totalSeats").innerHTML =
-        data[0].Total;
+    document.getElementById("leadingSeats").innerHTML =
+    data[0].Leading;
 
-        document.getElementById("leadingSeats").innerHTML =
-        data[0].Leading;
-
-        document.getElementById("countedSeats").innerHTML =
-        data[0].Counted;
-
-    }catch(error){
-
-        console.log(error);
-    }
+    document.getElementById("countedSeats").innerHTML =
+    data[0].Counted;
 }
 
-/* INITIAL LOAD */
+/* LOAD */
 
 loadData();
 loadNews();
