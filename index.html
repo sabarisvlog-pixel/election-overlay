@@ -243,7 +243,7 @@ CENTER
 
 .tn-map{
 
-    width:420px;
+    width:500px;
 
     height:auto;
 
@@ -426,6 +426,16 @@ BOTTOM PARTY BAR
 
 <body>
 
+<!-- AUDIO -->
+
+<audio id="bgMusic" autoplay loop>
+
+<source
+src="https://sabarisvlog-pixel.github.io/election-overlay/news.mp3"
+type="audio/mpeg">
+
+</audio>
+
 <!-- HEADER -->
 
 <div class="header">
@@ -513,7 +523,8 @@ BOTTOM PARTY BAR
         </div>
 
         <img class="tn-map"
-src="https://raw.githubusercontent.com/sabarisvlog-pixel/election-overlay/main/tnmap.png">
+        src="https://raw.githubusercontent.com/sabarisvlog-pixel/election-overlay/main/tnmap.png">
+
     </div>
 
     <!-- RIGHT PANEL -->
@@ -541,6 +552,17 @@ src="https://raw.githubusercontent.com/sabarisvlog-pixel/election-overlay/main/t
 <div class="container" id="results"></div>
 
 <script>
+
+/* ENABLE MUSIC */
+
+const music =
+document.getElementById("bgMusic");
+
+document.body.addEventListener("click", () => {
+
+    music.play();
+
+});
 
 /* CLOCK */
 
